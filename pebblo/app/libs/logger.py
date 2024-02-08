@@ -3,8 +3,7 @@ Module to handle logging functionality
 """
 import logging
 import os
-
-
+print(os.environ.get('PEBBLO_LOG_LEVEL', 'ABC'))
 def get_logger():
     """Get object of logger"""
     logger_obj = logging.getLogger("Pebblo Logger")
