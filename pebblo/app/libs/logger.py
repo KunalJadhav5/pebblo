@@ -8,6 +8,7 @@ from pebblo.app.daemon import config_details
 
 def get_logger(log_level):
     """Get object of logger"""
+    print('-----logger details for pebblo-----')
     print(os.environ.get('PEBBLO_LOG_LEVEL', 'ABC'))
     logger_obj = logging.getLogger("Pebblo Logger")
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
