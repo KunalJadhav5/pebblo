@@ -2,7 +2,6 @@
 Module to handle logging functionality
 """
 import logging
-import os
 from pebblo.app.daemon import config_details
 
 
