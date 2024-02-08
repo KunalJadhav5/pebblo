@@ -23,7 +23,7 @@ def start():
     args = parser.parse_args()
     path = args.config
     config_details = load_config(path)
-    print(config_details)
+    print(f'----- Config Details for pebblo {config_details} -----')
     log_level = config_details.get('logging', {}).get('level', 'info')
     os.environ.setdefault("PEBBLO_LOG_LEVEL", log_level)
     # Init TopicClassifier(This step downloads the models and put in cache)
