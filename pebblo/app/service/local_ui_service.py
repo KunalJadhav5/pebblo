@@ -93,6 +93,8 @@ class AppData:
                 documentsWithFindings=document_with_findings_list,
                 dataSource=data_source_list
             )
+
+            print(f'----Data {data} ----')
             return json.dumps(data.dict(), indent=4)
 
         except Exception as ex:
