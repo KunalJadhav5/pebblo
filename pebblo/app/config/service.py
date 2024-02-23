@@ -7,6 +7,7 @@ import asyncio
 from pebblo.app.routers.local_ui_routers import local_ui_router_instance
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
+from fastapi.middleware.cors import CORSMiddleware
 
 with redirect_stdout(StringIO()), redirect_stderr(StringIO()):
     from pebblo.app.routers.routers import router_instance
@@ -24,6 +25,17 @@ class Service:
         self.port = self.config_details.get('daemon', {}).get('port', 8000)
         self.host = self.config_details.get('daemon', {}).get('host', 'localhost')
         self.log_level = self.config_details.get('logging', {}).get('level', 'info')
+        self.origins = ['http://localhost:8000',
+                        'http://localhost:8080',
+                        f'http://{self.host}:{self.port}'
+                        ]
+        self.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=self.origins,
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
 
     async def create_main_api_server(self):
         self.app.mount(
