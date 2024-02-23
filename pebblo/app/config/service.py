@@ -27,6 +27,10 @@ class Service:
         self.log_level = self.config_details.get('logging', {}).get('level', 'info')
         self.origins = ['http://localhost:8000',
                         'http://localhost:8080',
+                        'http://localhost:8000/pebblo',
+                        'http://localhost:8080/pebblo',
+                        'http://localhost:8000/pebblo/',
+                        'http://localhost:8080/pebblo/'
                         f'http://{self.host}:{self.port}'
                         ]
         self.app.add_middleware(
