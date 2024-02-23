@@ -89,7 +89,7 @@ class AppData:
                 documentsWithFindings=document_with_findings_list,
                 dataSource=data_source_list
             )
-
+            print(f'---data{data.dict()}---')
             # Return JSON representation of AppModel instance
             return json.dumps(data.dict(), indent=4)
 
