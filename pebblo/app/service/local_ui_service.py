@@ -48,7 +48,7 @@ class AppData:
                 logger.debug(f'report.json path {app_detail_path}')
                 app_detail_json = read_json_file(app_detail_path)
                 if not app_detail_json:
-                    logger.debug('Error: Unable to fetch loadId details')
+                    logger.debug('Error: Unable to fetch Json details')
                     logger.debug(f'App Json : {app_json}')
                     continue
                 report_summary = app_detail_json.get('reportSummary')
@@ -64,15 +64,18 @@ class AppData:
                 # Fetching Details for dashboard tabs
                 data_source_details = app_detail_json.get('dataSources')
                 # Fetching only required values for dashboard pages
-                if data_source_details:
-                    for data in data_source_details:
-                        # Adding appName in dataSource
-                        updated_data_source_dict = update_data_source(data, app_name)
-                        data_source_list.append(updated_data_source_dict)
-                        # Adding appName in findingsSummary
-                        finding_data = update_findings_summary(data, app_name)
-                        # appending only required value for dashboard
-                        findings_list.extend(finding_data)
+                if not data_source_details:
+                    logger.debug('Error: Unable to fetch dataSources details')
+                    logger.debug(f'App Detail Json : {app_detail_json}')
+                    continue
+                for data in data_source_details:
+                    # Adding appName in dataSource
+                    updated_data_source_dict = update_data_source(data, app_name)
+                    data_source_list.append(updated_data_source_dict)
+                    # Adding appName in findingsSummary
+                    finding_data = update_findings_summary(data, app_name)
+                    # appending only required value for dashboard
+                    findings_list.extend(finding_data)
 
                 # Fetching DocumentWithFindings details from app metadata.json
                 app_metadata_detail_path = f'{CacheDir.home_dir.value}/{app_dir}/{latest_load_id}/{CacheDir.metadata_file_path.value}'
