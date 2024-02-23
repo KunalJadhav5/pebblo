@@ -2,8 +2,9 @@ import json
 import os
 from pebblo.app.enums.enums import CacheDir
 from pebblo.app.libs.logger import logger
-from pebblo.app.utils.utils import read_json_file, update_findings_summary, update_data_source, get_document_with_findings_data
+from pebblo.app.utils.utils import get_full_path, read_json_file, update_findings_summary, update_data_source, get_document_with_findings_data
 from pebblo.app.models.models import AppListDetails, AppModel
+
 
 class AppData:
     @staticmethod
@@ -13,7 +14,9 @@ class AppData:
         """
         try:
             # Retrieve the full path of the cache directory
-            dir_full_path = CacheDir.home_dir.value
+            dir_full_path = get_full_path(CacheDir.home_dir.value)
+            # List all apps in the directory
+            dir_path = os.listdir(dir_full_path)
 
             # Initialize lists and counters
             all_apps = []
