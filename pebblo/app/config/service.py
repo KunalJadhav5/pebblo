@@ -24,7 +24,21 @@ class Service:
         self.port = self.config_details.get('daemon', {}).get('port', 8000)
         self.host = self.config_details.get('daemon', {}).get('host', 'localhost')
         self.log_level = self.config_details.get('logging', {}).get('level', 'info')
-
+        self.origins = ['http://localhost:8000',
+                        'http://localhost:8080',
+                        'http://localhost:8000/pebblo',
+                        'http://localhost:8080/pebblo',
+                        'http://localhost:8000/pebblo/',
+                        'http://localhost:8080/pebblo/'
+                        f'http://{self.host}:{self.port}'
+                        ]
+        self.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=self.origins,
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
     async def create_main_api_server(self):
         self.app.mount(
             "/app/pebblo-ui",
