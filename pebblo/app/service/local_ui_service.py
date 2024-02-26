@@ -39,10 +39,12 @@ class AppData:
                     # Condition for handling loadId
                     if not app_json and not app_json.get('load_ids'):
                         # Unable to fetch LoadId Details
+                        print(f'----App json {app_json} ------')
                         logger.debug('Error: Unable to fetch loadId details')
                         logger.debug(f'App Json : {app_json}')
                         continue
                         # Fetching latest loadId
+                    print('After continuation')
                     latest_load_id = app_json.get("load_ids")[-1]
                     # Path to report.json
                     app_detail_path = f'{CacheDir.home_dir.value}/{app_dir}/{latest_load_id}/{CacheDir.report_data_file_name.value}'
