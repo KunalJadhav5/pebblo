@@ -27,6 +27,7 @@ class AppData:
 
             # Iterating through each app in the directory
             for app_dir in dir_path:
+                print(f'App Dir {app_dir}')
                 try:
                     if app_dir.startswith('.'):
                         # Skip hidden folders
