@@ -30,15 +30,19 @@ class AppData:
                 try:
                     if app_dir.startswith('.'):
                         # Skip hidden folders
+                        print(f'Skipping hidden folder {app_dir}')
                         logger.debug(f'Skipping hidden folder {app_dir}')
                         continue
                     # Path to metadata.json
                     app_path = f'{CacheDir.home_dir.value}/{app_dir}/{CacheDir.metadata_file_path.value}'
+                    print(f'metadata.json path {app_path}')
                     logger.debug(f'metadata.json path {app_path}')
                     app_json = read_json_file(app_path)
                     # Condition for handling loadId
                     if not app_json and not app_json.get('load_ids'):
                         # Unable to fetch LoadId Details
+                        print('Error: Unable to fetch loadId details')
+                        print(f'App Json : {app_json}')
                         logger.debug('Error: Unable to fetch loadId details')
                         logger.debug(f'App Json : {app_json}')
                         continue
@@ -46,9 +50,12 @@ class AppData:
                     latest_load_id = app_json.get("load_ids")[-1]
                     # Path to report.json
                     app_detail_path = f'{CacheDir.home_dir.value}/{app_dir}/{latest_load_id}/{CacheDir.report_data_file_name.value}'
+                    print(f'report.json path {app_detail_path}')
                     logger.debug(f'report.json path {app_detail_path}')
                     app_detail_json = read_json_file(app_detail_path)
                     if not app_detail_json:
+                        print('Error: Unable to fetch loadId details')
+                        print(f'App Json : {app_json}')
                         logger.debug('Error: Unable to fetch loadId details')
                         logger.debug(f'App Json : {app_json}')
                         continue
@@ -68,6 +75,8 @@ class AppData:
                     data_source_details = app_detail_json.get('dataSources')
                     # Fetching only required values for dashboard pages
                     if not data_source_details:
+                        print('Error: Unable to fetch dataSources details')
+                        print(f'App Detail Json : {app_detail_json}')
                         logger.debug('Error: Unable to fetch dataSources details')
                         logger.debug(f'App Detail Json : {app_detail_json}')
                         continue
