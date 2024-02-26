@@ -112,7 +112,7 @@ const TABLE_BODY = (props) => {
        align: col?.align,
        link:
          col?.field !== ACTIONS && link
-           ? `${link}/?app_name=${item?.name}`
+           ? `${link}?app_name=${item?.name}`
            : "",
        isTooltip: col?.isTooltip,
        tooltipTitle: col?.tooltipTitle ? col?.tooltipTitle(item) : "",
