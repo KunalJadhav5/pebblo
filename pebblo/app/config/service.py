@@ -18,7 +18,7 @@ class Service:
         # Initialise app instance
         self.app = FastAPI()
         # Register the router instance with the main app
-        self.app.include_router(router_instance.router)
+        # self.app.include_router(router_instance.router)
         self.app.include_router(local_ui_router_instance.router)
         # Fetching Details from Config File
         self.config_details = config_details
