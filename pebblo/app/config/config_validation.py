@@ -21,13 +21,17 @@ class DaemonConfig(ConfigValidator):
         if not isinstance(self.host, str):
             raise ValueError("Error: Unsupported host specified in the configuration")
 
-        #if not isinstance(self.port, int):
-         #   raise ValueError("Error: Unsupported port specified in the configuration")
+        try:
+            self.port = int(self.port)
+        except ValueError:
+            logger.error("Error: Port must be an integer")
+            sys.exit(1)
 
         self.port = int(self.port)
 
-        if self.port >= 65535:
-            raise ValueError("Error: Unsupported Port specified in the configuration")
+        if not (0 < self.port <= 65535):
+            logger.error("Error: Port must be between 1 and 65535")
+            sys.exit(1)
 
 
 class LoggingConfig(ConfigValidator):
