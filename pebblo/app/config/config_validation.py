@@ -19,7 +19,7 @@ class DaemonConfig(ConfigValidator):
     def validate(self):
         # Add validation logic here
         if not isinstance(self.host, str):
-            raise ValueError("Error: Unsupported host specified in the configuration")
+            raise ValueError("Error: Host must be a sting")
 
         try:
             self.port = int(self.port)
