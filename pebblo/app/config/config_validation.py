@@ -1,7 +1,8 @@
 import os
 from pebblo.app.utils.utils import get_full_path
-from pebblo.app.libs.logger import SUPPORTED_LOG_LEVELS
+from pebblo.app.libs.logger import logger, SUPPORTED_LOG_LEVELS
 from abc import ABC, abstractmethod
+import sys
 
 
 class ConfigValidator(ABC):
@@ -56,11 +57,15 @@ class ReportsConfig(ConfigValidator):
 
 
 def validate_config(config_dict):
-    daemon_config = DaemonConfig(config_dict.get('daemon', {}))
-    logging_config = LoggingConfig(config_dict.get('logging', {}))
-    reports_config = ReportsConfig(config_dict.get('reports', {}))
+    try:
+        daemon_config = DaemonConfig(config_dict.get('daemon', {}))
+        logging_config = LoggingConfig(config_dict.get('logging', {}))
+        reports_config = ReportsConfig(config_dict.get('reports', {}))
 
-    # Validate each section
-    daemon_config.validate()
-    logging_config.validate()
-    reports_config.validate()
+        # Validate each section
+        daemon_config.validate()
+        logging_config.validate()
+        reports_config.validate()
+    except (ValueError, FileNotFoundError) as e:
+        logger.error(f"Error occurred: {str(e)}")
+        sys.exit(1)
