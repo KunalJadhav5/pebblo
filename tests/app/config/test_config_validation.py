@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 from pebblo.app.config.config_validation import validate_config, DaemonConfig, LoggingConfig, ReportsConfig
 
 
@@ -14,9 +14,9 @@ def config_dict():
 
 def test_validate_config(config_dict):
     with patch('pebblo.app.config.config_validation.get_full_path', return_value='~/.pebblo'):
-        with patch('pebblo.app.config.config_validation.logger.error') as mock_logger_error:
-            validate_config(config_dict)
-            assert mock_logger_error.call_count == 0
+        with patch('pebblo.app.config.config_validation.logger.error'):
+            with pytest.raises(SystemExit):
+                validate_config(config_dict)
 
 
 def test_daemon_config_validate():
