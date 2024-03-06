@@ -1,4 +1,4 @@
-from pebblo.app.config.config_validation.py import validate_config, DaemonConfig, LoggingConfig, ReportsConfig
+from pebblo.app.config.config_validation import validate_config, DaemonConfig, LoggingConfig, ReportsConfig
 import pytest
 
 
