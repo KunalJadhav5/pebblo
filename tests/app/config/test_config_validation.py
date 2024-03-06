@@ -16,11 +16,19 @@ def test_daemon_config_validate():
     assert validator.errors == ["Error: Invalid host '123'. Host must be a string."]
 
     # Test with invalid port
-    config = {"host": "localhost", "port": "70000"}
+    config = {"host": "localhost", "port": 70000}
     validator = DaemonConfig(config)
     validator.validate()
     assert validator.errors == [
         "Error: Invalid port '70000'. Port must be between 1 and 65535."
+    ]
+
+    # Test with negative port
+    config = {"host": "localhost", "port": -1}
+    validator = DaemonConfig(config)
+    validator.validate()
+    assert validator.errors == [
+        "Error: Invalid port '-1'. Port must be between 1 and 65535."
     ]
 
     # Test with invalid port using string value
